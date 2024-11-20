@@ -15,6 +15,10 @@ class _DaftarPageState extends State<DaftarPage> {
   late Future<ClassName> resto;
 
   Future<ClassName> fetchResto() async {
+    String username = await AuthServices.getUsername();
+    setState(() {
+      _username = username;
+    });
     final response = await http.get(Uri.parse('https://restaurant-api.dicoding.dev/list'));
     if (response.statusCode == 200) {
       return ClassName.fromJson(json.decode(response.body));
@@ -22,10 +26,7 @@ class _DaftarPageState extends State<DaftarPage> {
       throw Exception('Failed to load agents');
     }
 
-    String username = await AuthServices.getUsername();
-    setState(() {
-      _username = username;
-    });
+    
   }
 
   @override
